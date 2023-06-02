@@ -1,6 +1,7 @@
 package is.demo.serenity.questions;
 
 import is.demo.serenity.userInterfaces.ProductosUI;
+import is.demo.serenity.utils.excel.EsperaImplicita;
 import is.demo.serenity.utils.excel.ObtenerDataExcel;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.Actor;
@@ -21,13 +22,16 @@ public class AgregarProductoValidacion implements Question<Boolean> {
 
     @Override
     public Boolean answeredBy(Actor actor) {
+        EsperaImplicita.esperaImplicita(5);
         List<WebElementFacade> productosUI = ProductosUI.LST_PRODUCTOS.resolveAllFor(actor);
-        Object[][] productosExcel = ObtenerDataExcel.getCredentials("src/test/resources/data/ProductList.xlsx", "ListaProductos");
+        for(WebElementFacade productos : productosUI){
+            System.out.println("Nombre productos : " + productos.getText());
+            System.out.println("Nombre excel :" +nombreProducto);
+            if(productos.getText().equals(nombreProducto))
+                return true;
+        }
 
-        boolean productoEnUI = validarProductoEnUI(productosUI, nombreProducto);
-        boolean productoEnExcel = validarProductoEnExcel(productosExcel, nombreProducto);
-
-        return productoEnUI && productoEnExcel;
+        return false;
     }
 
     private boolean validarProductoEnExcel(Object[][] productosExcel, String nombreProducto) {

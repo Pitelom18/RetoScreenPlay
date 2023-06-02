@@ -36,7 +36,7 @@ public class AgregarProductoStepDefinitions {
     }
     @Cuando("diligencio el nombre del producto y demas campos obligatorios")
     public void diligencioElNombreDelProductoYDemasCamposObligatorios() {
-        nombreProducto = "producto Natalia Tellez";
+        nombreProducto = "producto Natalia Tellez 1";
         theActorInTheSpotlight().attemptsTo(
 
             Enter.theValue(nombreProducto).into(TXT_NOMBREPRODUCTO),
